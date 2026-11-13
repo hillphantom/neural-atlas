@@ -6,6 +6,14 @@ Created by [HillPhantom](https://www.youtube.com/@HillPhantom). Explore the publ
 
 This repository is the standalone web app, with the fictional Maker Node demo and a local event adapter. It does not contain the separate marketing website, production integrations or device firmware.
 
+## Why I built this
+
+I built Neural Atlas for my local AI stack because I wanted to see what my agents, workflows and pipelines were doing in real time—without rebuilding them around someone else’s framework.
+
+Logs told me what happened. I wanted a visual way to follow what was working, what had finished and where things were slowing down or going quiet. Seeing the work as a living network helped me understand what my systems were doing and why, without keeping another dashboard full of logs open.
+
+The idea is simple: bring the work you already have, or the work you build next, and give it a visual home. Your agents can work together on one project or across several projects and machines. Neural Atlas turns the activity they report into a view you can follow, explore and make your own. Health and progress signals are only as accurate as the events your systems provide.
+
 ## Download or clone
 
 Use **Code → Download ZIP** on this repository, then extract it, or run:
