@@ -86,3 +86,7 @@ Checks cover demo progress, bounded growth, workspaces, duplicate/invalid events
 ## License
 
 [MIT](LICENSE) — Copyright © 2026 HillPhantom. Third-party websites and streams linked by the app remain subject to their own terms.
+
+## Support HillPhantom
+
+If you find this project useful and want to support future work, [buy me a coffee on Ko-fi](https://ko-fi.com/hillphantom). One-time tips are appreciated; no subscription needed.
