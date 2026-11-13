@@ -1,0 +1,1 @@
+globalThis.AtlasConfig={projects:[{id:'maker',name:'Maker'},{id:'project-x',name:'Project X'}],workers:Array.from({length:12},(_,i)=>({id:`pipeline-${i+1}`,name:`My pipeline ${i+1}`,project:i<6?'maker':'project-x',type:'pipeline',machine:i<6?'AI box 1':'AI box 2',goal:'Replace with the real purpose.'}))};

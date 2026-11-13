@@ -1,0 +1,14 @@
+# Local secrets, dependencies and runtime material
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+*.pyc
+*.log
+*.pem
+*.key
+work/
+local/
+.DS_Store
+Thumbs.db

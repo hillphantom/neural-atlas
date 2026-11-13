@@ -1,0 +1,12 @@
+[
+  {
+    "id": "example-1",
+    "worker": "worker-01",
+    "project": "my-project",
+    "state": "completed",
+    "title": "Example completed checkpoint",
+    "topic": "My work",
+    "at": "2026-01-01T12:00:00Z",
+    "note": "Fixture only; replace with reported work."
+  }
+]

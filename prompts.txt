@@ -1,0 +1,21 @@
+Make it your project
+
+Work only inside this extracted Neural Atlas starter. Read README.md and CONNECTING.md first. Preserve the black background, dense connected 3D network, soft glow, layout and smooth completion-driven growth. Configure my own projects and workers in app/atlas-config.js. Each worker may be an agent, workflow or pipeline; do not force four roles or four workers. Ask for IDs, names, goals, project assignments, machine labels and event sources. Read CUSTOMIZE.md and support my requested inventory, with bounded rendering and honest performance limits. Keep the fictional example clearly distinguished from real activity. Do not connect to existing services or alter other projects. Verify desktop and mobile layouts, worker details, Missions and Matrix mode.
+
+---
+
+Bring in real activity
+
+Read CONNECTING.md and app/activity-adapter.js. Inspect my chosen worker's documented logs or API read-only before changing anything. Propose a mapping to the supported event schema (id, worker, state, title, topic, at; optional note). Keep credentials server-side. Build a local adapter that atomically writes activity.json with unique event IDs. Do not infer completion from time passing or token output. Preserve idle, failed and running states. Prevent duplicate completion growth. Never stop, restart or reconfigure my existing workers. Verify external mode with a known task, a duplicate event, idle time, a failure and a stale feed. Report remaining limitations.
+
+---
+
+Add grounded daily reflections
+
+Extend this starter with optional once-per-24-hour reflections for each worker. This is new functionality, not already implemented. Use only that worker's recorded events and approved output excerpts. Ask my existing model to summarize what it worked on, what it learned from those records, and what it found interesting. Require references to event IDs and distinguish observations from verified facts or model training. Design scheduling, persistence, retry ownership and recovery before implementation. Do not pause or stop production workers without my authorization. Keep generated reflections out of the completion count and label them AI-generated.
+
+---
+
+Publish a safe public view
+
+Prepare a separate public deployment of this Neural Atlas starter. Preserve my local app and services. First publish only fictional or explicitly approved example activity as static files; no port forwarding. If I later authorize real activity, design an outbound authenticated relay that exposes only allowlisted fields. Never publish private source text, local paths, internal addresses, credentials or raw logs. Keep the public browser credential-free. Add stale-feed and confirmed-fault states without treating normal idle as an outage. Verify the deployment and explain how to connect my own domain.
