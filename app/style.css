@@ -124,3 +124,11 @@ html{color-scheme:dark}
 /* Project identity follows the expandable reading guide in normal flow. */
 .intro #project-heading{position:static;justify-content:flex-start;text-align:left;margin:14px 0 0;min-height:0;height:auto;gap:6px 12px;line-height:1.6}
 .intro .reading-key{position:static}
+
+/* Expanded phone help takes real space so workers and controls remain reachable. */
+@media(max-width:750px){
+ #live:has(.reading-key[open]){height:auto;min-height:480px;padding-top:10px;display:flow-root}
+ #live:has(.reading-key[open]) .intro{position:relative;top:auto;left:auto;margin-inline:calc(var(--page-gutter) + 22px) var(--page-gutter);max-width:none}
+ #live:has(.reading-key[open]) #labels{position:relative;left:auto;right:auto;bottom:auto;margin:24px var(--page-gutter) 0}
+ #live:has(.reading-key[open]) .art-bottom{position:relative;left:auto;right:auto;bottom:auto;margin:18px var(--page-gutter);flex-wrap:wrap}
+}
