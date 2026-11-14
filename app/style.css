@@ -100,3 +100,23 @@ body.hero-mode #growth-note{max-width:190px}body.hero-mode #growth-note strong{f
 .work-heading{justify-content:center;text-align:center;position:relative}
 .work-heading button{margin-left:0}
 @media(max-width:650px){.agent-chip{flex-basis:min(230px,78vw)}}
+
+/* Fluid worker controls: wrap instead of a horizontal scrolling strip. */
+.agent-strip{display:flex;flex-wrap:wrap;justify-content:center;overflow:visible;scroll-snap-type:none;gap:clamp(6px,1vw,12px)}
+.agent-strip .agent-chip{flex:1 1 160px;max-width:280px;min-width:0;padding:clamp(8px,1.2vw,13px);min-height:80px}
+.agent-chip strong{overflow-wrap:anywhere}
+html{color-scheme:dark}
+.donate-control{display:inline-flex;align-items:center;gap:5px;min-height:42px;color:#76d9bd;white-space:nowrap;font-size:11px}
+.donate-control:hover{color:#b3f5df}
+@media(max-width:650px){
+ .agent-strip .agent-chip{flex:1 1 calc(50% - 12px);max-width:none;padding:8px;min-height:78px}
+ .agent-chip strong{font-size:10px;line-height:1.35}
+ .agent-chip span{font-size:9px;margin-top:4px}
+ .agent-chip small{font-size:9px;margin-top:3px}
+ #shell>footer{height:auto;min-height:108px;gap:4px 10px;padding-block:8px}
+ .transport{flex:1 1 100%;justify-content:center;gap:clamp(2px,1vw,8px)}
+ .transport button{font-size:10px;padding-inline:4px}
+ .radio-control{margin-left:auto}
+ #fullscreen{margin-left:0}
+ #ticker{order:3}
+}
