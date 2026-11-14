@@ -120,3 +120,7 @@ html{color-scheme:dark}
  #fullscreen{margin-left:0}
  #ticker{order:3}
 }
+
+/* Project identity follows the expandable reading guide in normal flow. */
+.intro #project-heading{position:static;justify-content:flex-start;text-align:left;margin:14px 0 0;min-height:0;height:auto;gap:6px 12px;line-height:1.6}
+.intro .reading-key{position:static}
