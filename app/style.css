@@ -95,3 +95,8 @@ body.dashboard>#growth-note{display:none}body.pure>#growth-note{max-width:210px;
 body.hero-mode #growth-note{max-width:190px}body.hero-mode #growth-note strong{font-size:10px}body.hero-mode #growth-note span{font-size:9px}
 
 .agent-strip{overflow-x:auto}.agent-chip{flex:0 0 230px}.source select{max-width:180px;color:#b5ded1;border:0;border-bottom:1px solid #34413e;padding:5px;background:#000}
+/* Center worker cards when they fit; keep the first card reachable when scrolling. */
+.agent-strip{justify-content:safe center;scroll-padding-inline:1px}
+.work-heading{justify-content:center;text-align:center;position:relative}
+.work-heading button{margin-left:0}
+@media(max-width:650px){.agent-chip{flex-basis:min(230px,78vw)}}
