@@ -133,8 +133,8 @@ for(let i=0;i<nodes.length;i++){
  if(i<BASE_NODES&&earlier>=0)connect(i,earlier);
  if(n.parent>=0)connect(i,n.parent);
 }
-function resize(){W=innerWidth;H=innerHeight;const d=Math.min(devicePixelRatio||1,1.5);canvas.width=W*d;canvas.height=H*d;ctx.setTransform(d,0,0,d,0,0);glowCanvas.width=canvas.width;glowCanvas.height=canvas.height;glowCtx.setTransform(d,0,0,d,0,0);render();}addEventListener('resize',resize);
-let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;canvas.dataset.motionMode='full';
+function resize(){W=innerWidth;H=innerHeight;const d=Math.min(devicePixelRatio||1,1.5,Math.sqrt(2400000/(W*H)));canvas.width=W*d;canvas.height=H*d;ctx.setTransform(d,0,0,d,0,0);const gd=Math.min(d,.65);glowCanvas.width=Math.ceil(W*gd);glowCanvas.height=Math.ceil(H*gd);glowCtx.setTransform(gd,0,0,gd,0,0);render();}addEventListener('resize',resize);
+let reduced=false;canvas.dataset.motionMode=reduced?'reduced':'full';$('#animation-motion').value=reduced?'reduced':'full';
 $('#animation-motion').onchange=e=>{reduced=e.target.value==='reduced';canvas.dataset.motionMode=reduced?'reduced':'full';};
 // Geometry is a direct projection of measured work, not a particle system.
 const clamp=v=>Math.max(0,Math.min(1,v));
@@ -184,7 +184,7 @@ function fieldPoint(n){
   if(!reduced){
    // A coherent local deformation field: neighbours flex together, without
    // disconnected jitter. Its envelope fades when agents become inactive.
-   const strength=weight*g.activity*(.75+g.effort*.65)*(heroMotion?1:.35),t=g.phase;
+   const strength=weight*g.activity*(.75+g.effort*.65)*1,t=g.phase;
    x+=strength*(Math.sin(t*.72+dy*10+p.id*.7)*.014+Math.sin(t*.31+n.z*7)*.006);
    y+=strength*(Math.cos(t*.61+dx*9+p.id*.4)*.012);
    z+=strength*(Math.sin(t*.83+dx*8-dy*6+p.id*.5)*.065+Math.sin(t*.37+dy*8)*.025);
@@ -195,7 +195,7 @@ function fieldPoint(n){
 let embedVisible=true;addEventListener('message',e=>{if(e.origin===location.origin&&e.source===parent&&e.data?.type==='atlas-visibility')embedVisible=!!e.data.visible;});
 function draw(now){
  requestAnimationFrame(draw);if(document.hidden||!embedVisible){lastTick=now;return}
- if(reduced&&now-lastFrame<100)return;
+ if(reduced&&now-lastFrame<33)return;
  const dt=lastTick?Math.min((now-lastTick)/1000,.1):0;lastTick=now;lastFrame=now;const issue=matrixIssue();renderIssue(issue);if(issue){if(now-lastUI>500){render();lastUI=now;}$('#growth-note').hidden=true;return;}if(!issue){tick(dt);updateGrowth(dt);}
  if(!paused&&!issue){if(orbit&&!drag&&!reduced)targetYaw+=dt*.045;const blend=1-Math.exp(-dt*6);yaw+=(targetYaw-yaw)*blend;pitch+=(targetPitch-pitch)*blend;zoom+=(targetZoom-zoom)*blend;}
  ctx.clearRect(0,0,W,H);ctx.lineCap='round';ctx.lineJoin='round';
@@ -206,10 +206,11 @@ function draw(now){
   const root=positions[n.parent],f=amounts[i];
   return project3D({x:root.x+(p.x-root.x)*f,y:root.y+(p.y-root.y)*f,z:root.z+(p.z-root.z)*f});
  });
+ const frameLines=edges.map(([a,b])=>connection(a,b,pts));
  // The white scaffold remains dense from the start; colored contributions
  // become richer as real (here simulated) verified results accumulate.
  edges.forEach(([a,b],i)=>{
-  const line=connection(a,b,pts),amount=line.amount;if(amount<.003)return;
+  const line=frameLines[i],amount=line.amount;if(amount<.003)return;
   const na=nodes[a],nb=nodes[b],newEdge=na.unit>0||nb.unit>0;
   const color=i%4===0?'#dce9ec':projects[na.g].color;
   ctx.strokeStyle=color;ctx.lineWidth=newEdge?.45:.4;
@@ -227,14 +228,14 @@ function draw(now){
    glowCtx.lineWidth=width;glowCtx.globalAlpha=energy*alpha;glowCtx.beginPath();
    edges.forEach(([a,b],i)=>{
     if(nodes[a].g!==project.id||i%4!==0||Math.min(amounts[a],amounts[b])<.98)return;
-    const line=connection(a,b,pts);glowCtx.moveTo(line.a.x,line.a.y);glowCtx.lineTo(line.b.x,line.b.y);
+    const line=frameLines[i];glowCtx.moveTo(line.a.x,line.a.y);glowCtx.lineTo(line.b.x,line.b.y);
    });glowCtx.stroke();
   }
  });
  // New structural links get a temporary diffuse highlight as they form,
  // including cross-region links, then become ordinary persistent mesh edges.
- edges.forEach(([a,b])=>{
-  const line=connection(a,b,pts);if(!line.fresh||line.amount<.003||line.light<.01)return;
+ edges.forEach(([a,b],i)=>{
+  const line=frameLines[i];if(!line.fresh||line.amount<.003||line.light<.01)return;
   const owner=nodes[a].unit>0?nodes[a]:nodes[b];glowCtx.strokeStyle=projects[owner.g].color;
   for(const [width,alpha] of [[6,.12],[2,.38]]){
    glowCtx.lineWidth=width;glowCtx.globalAlpha=line.light*line.amount*alpha;
@@ -333,3 +334,4 @@ let lastUI=0;reset();resize();requestAnimationFrame(draw);
 if(makerData.origin==='external'){document.title='Neural Atlas · External activity';document.querySelector('[data-view=dashboard] span').textContent=MakerDemo.roles.length;$('.source a').textContent='External activity';$('.intro>p').textContent='Your reported worker events.';$('#speed').disabled=true;$('#pause').setAttribute('aria-label','Pause visualization');const help=document.querySelectorAll('.reading-key p');help[help.length-1].textContent='External activity only. Glow means reported running work; growth means accepted completed events. This session is bounded and resets on reload. See CONNECTING.md for feed limits.';}
 if(heroMotion){view='pure';orbit=true;document.body.className='pure hero-mode';render();}
 })();
+
